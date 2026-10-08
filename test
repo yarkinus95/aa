@@ -1,0 +1,12 @@
+s; 0; SP -> s; 0; 0; >; >       // In state s, if input is 0, copy it to Tape B and move both heads
+s; 1; SP -> q1; 1; SP; >; >     // In state s, if input is 1, move to state q1 to check for "10"
+
+q1; 0; SP -> q2; SP; 0; >; >    // In state q1, if input is 0, copy the 0 to Tape B (we detected "10")
+q1; 1; SP -> s; 1; 1; >; >      // If input is another 1, just copy it and return to state s (not a "10" pattern)
+
+q2; SP; SP -> q3; SP; SP; >; >  // After copying the "0" from the "10", move to state q3 to continue scanning
+
+q3; 0; SP -> s; 0; SP; >; >     // In state q3, if input is 0, return to state s and continue copying
+q3; 1; SP -> s; 1; SP; >; >     // In state q3, if input is 1, return to state s and continue copying
+
+s; SP; SP -> end; SP; SP; S; S  // When the input ends (blank), halt the machine
